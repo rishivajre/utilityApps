@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <style>
+        /* Global styles */
+
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+        :root {
+            --primary-color: #3498db;
+            --hover-color: #2980b9;
+            --bg-color: #ffffe8;
+            --shadow-dark: #f6ccff;
+            --shadow-light: #cfffee;
+            --text-color: #333;
+            --text-secondary: #666;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.2;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Responsive typography */
+
+        h2.card-title {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Neumorphic card styles */
+
+        .card {
+            background-color: var(--bg-color);
+            box-shadow: 5px 5px 7px var(--shadow-dark), -5px -5px 7px var(--shadow-light);
+            border-radius: 10px;
+            padding: clamp(1rem, 4vw, 2rem);
+            margin-bottom: 2rem;
+        }
+
+        /*HomePage Intro*/
+
+        .intro-content {
+            text-align: justify;
+        }
+
+        h1 {
+            color: #2d4263;
+            text-align: normal;
+            margin-bottom: 0.2px;
+            font-size: 30px;
+            text-shadow: 2px 2px 4px #a3b1c6;
+            width: 100%;
+        }
+        
+        p {
+            color: #505e75;
+            font-size: 15px;
+            margin-bottom: clamp(16px, 3vw, 24px);
+        }
+
+        /* Featured Projects/Tools */
+
+        .featured-projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .featured-project {
+            background-color: var(--bg-color);
+            box-shadow: 5px 5px 7px var(--shadow-dark), -5px -5px 7px var(--shadow-light);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .featured-project:hover {
+            transform: translateY(-5px);
+        }
+
+        .featured-project img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .featured-project h3 {
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            margin-bottom: 5px;
+        }
+
+        .featured-project p {
+            color: #505e75;
+            font-size: 15px;
+            margin-bottom: 25px;
+        }
+
+        /* Blog & Publications */
+
+        .blog-posts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .blog-post {
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 5px 5px 7px var(--shadow-dark), -5px -5px 7px var(--shadow-light);
+            transition: transform 0.3s ease;
+        }
+
+        .blog-post:hover {
+            transform: translateY(-5px);
+        }
+
+        .blog-post h3 {
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            margin-bottom: 0.8rem;
+        }
+
+        /* Resources */
+
+        .resources {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .resource {
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 5px 5px 7px var(--shadow-dark), -5px -5px 7px var(--shadow-light);
+            transition: transform 0.3s ease;
+        }
+
+        .resource:hover {
+            transform: translateY(-5px);
+        }
+
+        .resource h4 {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            margin-bottom: 0.8rem;
+        }
+
+        /* Common button styles */
+
+        .connect-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 0.5rem;
+            background: var(--background);
+            color: var(--primary-color);
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 2px 2px 4px var(--shadow-dark), -2px -2px 4px var(--shadow-light);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .connect-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .connect-btn:active {
+            transform: translateY(0);
+            box-shadow: inset 2px 2px 4px var(--shadow-dark), inset -2px -2px 4px var(--shadow-light);
+        }
+        
+
+        /* Mobile-specific adjustments */
+
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            .card {
+                padding: 1rem;
+            }
+            .featured-project,
+            .blog-post,
+            .resource {
+                padding: 1rem;
+            }
+            .featured-project img {
+                height: 380px;
+            }
+            a[href="#"] {
+                padding: 0.6rem 1.2rem;
+            }
+            .connect-btn {
+                width: 100%;
+                padding: 0.75rem;
+            }
+            h1 {
+                color: #2d4263;
+                text-align: justify;
+                margin-bottom: 15px;
+                font-size: 26px;
+                text-shadow: 2px 2px 4px #a3b1c6;
+                width: 100%;
+            }
+            p {
+            color: #505e75;
+            font-size: 13px;
+            margin-bottom: clamp(16px, 3vw, 24px);
+        }
+        }
+
+        /* Small mobile adjustments */
+
+        @media screen and (max-width: 480px) {
+            .featured-projects,
+            .blog-posts,
+            .resources {
+                grid-template-columns: 1fr;
+            }
+            .featured-project img {
+                height: 360px;
+            }
+            .connect-btn {
+                width: 100%;
+                padding: 0.75rem;
+            }
+            h1 {
+                color: #2d4263;
+                text-align: justify;
+                margin-bottom: 15px;
+                font-size: 24px;
+                text-shadow: 2px 2px 4px #a3b1c6;
+                width: 100%;
+            }
+            p {
+            color: #505e75;
+            font-size: 13px;
+            margin-bottom: clamp(16px, 3vw, 24px);
+        }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <!-- HomePage Intro-->
+        <div class="card">
+            <div class="intro-content">
+                <h1>Welcome to the Future of Software Testing</h1>
+                <p>Hey there! I'm Rishikesh, the SDET behind Testtales.com - your new one-stop-shop for innovative testing solutions and resources.</br>
+                    </br>
+                    As a seasoned veteran in the trenches of software quality assurance, I know firsthand the challenges that testing professionals face. That's why I poured my heart and soul into creating Testtales - a platform designed to empower fellow QA experts, developers,
+                    and teams like yours. </br>
+                    </br>
+                    Testtales offers a comprehensive suite of FREE Testing-Focused Tools, each tailored to address a specific pain point. From our session-based testing dashboard SBTM to the versatile Test Data Gen Pro, these tools are built to boost your productivity, enhance
+                    collaboration, and drive continuous improvement. </br>
+                    </br>
+                    Rishikesh Vajre, Founder of Testtales.com</p>
+                </br>
+            </div>
+            <a href="https://www.linkedin.com/in/rishikesh-vajre/" target="_blank" class="connect-btn" rel="noopener">Let's Connect</a>
+        </div>
+    </div>
+    </div>
+    <!-- Featured Projects/Tools -->
+    <div class="card">
+        <h2 class="card-title">Featured Testing Tools [FREE]</h2>
+        <div class="featured-projects">
+            <div class="featured-project">
+                <img src="https://testtales.com/wp-content/uploads/2024/11/TASK-SUTRA-7.gif" alt="SBTM Dashboard Testtales.com">
+                <h3>SBTM Dashboard</h3>
+                <p>Visualize, track abd download your session-based testing efforts.</p>
+                <a href="https://testtales.com/free-utilities/sbtm-dashboard/" target="_blank" class="connect-btn" rel="noopener">Start Session Test</a>
+            </div>
+            <div class="featured-project">
+                <img src="https://testtales.com/wp-content/uploads/2024/11/TASK-SUTRA-1-1.gif" alt="Task Sutra Testtales.com">
+                <h3>TASK SUTRA</h3>
+                <p>Complete your checklist, take your notes and download progress.</p>
+                <a href="https://testtales.com/free-utilities/taskmaster/" target="_blank" class="connect-btn" rel="noopener">Complete Tasks</a>
+            </div>
+            <div class="featured-project">
+                <img src="https://testtales.com/wp-content/uploads/2024/11/TASK-SUTRA.png" alt="Test Data Generator pro Testtales.com">
+                <h3>TEST DATA GEN PRO</h3>
+                <p>Generate test data and dwnload it for your QA needs.</p>
+                <a href="https://testtales.com/testdatageneratorpro/" target="_blank" class="connect-btn" rel="noopener">Generate Test Data</a>
+            </div>
+            <div class="featured-project">
+                <img src="https://testtales.com/wp-content/uploads/2024/11/TASK-SUTRA-9-1.gif" alt="AI Prompt Shastra Testtales.com">
+                <h3>AI PROMPT SHASTRA</h3>
+                <p>Unlock the power of AI with our curated collection of prompts.</p>
+                <a href="https://testtales.com/free-utilities/ai-prompt-shastra/" target="_blank" class="connect-btn" rel="noopener">Try Prompting</a>
+            </div>
+
+
+            <!-- <div class="featured-project">
+          <img src="/api/placeholder/400/300" alt="Automation Script Dispenser">
+          <h3>Automation Script Dispenser</h3>
+          <p>Get instant access to a library of reusable automation scripts.</p>
+          <a href="#">Try it now</a>
+        </div>-->
+        </div>
+    </div>
+
+    <!-- Blog & Publications -->
+    <div class="card">
+        <h2 class="card-title">Blog & Publications</h2>
+        <div class="blog-posts">
+            <div class="blog-post">
+                <h3>Mastering Microservices Testing</h3>
+                <p>Explore the best practices and strategies for testing microservices architectures.</p>
+                </br>
+                <a href="#" target="_blank" class="connect-btn" rel="noopener">button</a>
+            </div>
+            <div class="blog-post">
+                <h3>Overcoming Automation Bottlenecks</h3>
+                <p>Learn how to identify and address the common challenges in test automation.</p>
+                </br>
+                <a href="#" target="_blank" class="connect-btn" rel="noopener">button</a>
+            </div>
+            <div class="blog-post">
+                <h3>Top 10 Software Errors to Watch Out For</h3>
+                <p>Discover the most common software errors and how to prevent them.</p>
+                </br>
+                <a href="#" target="_blank" class="connect-btn" rel="noopener">button</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Testing Resources & Tutorials -->
+    <div class="card">
+        <h2 class="card-title">Testing Resources & Tutorials</h2>
+        <div class="resources">
+            <div class="resource">
+                <h4>Automation Basics</h4>
+                <p>Get started with test automation using our comprehensive guides.</p>
+                </br>
+                <a href="#" target="_blank" class="connect-btn" rel="noopener">button</a>
+            </div>
+            <div class="resource">
+                <h4>Microservices Testing</h4>
+                <p>Learn the ins and outs of testing microservices architecture.</p>
+                </br>
+                <a href="#" target="_blank" class="connect-btn" rel="noopener">button</a>
+            </div>
+            <div class="resource">
+                <h4>Performance Testing</h4>
+                <p>Optimize your application's performance with our expert tips.</p>
+                </br>
+                <a href="#" target="_blank" class="connect-btn" rel="noopener">button</a>
+            </div>
+            <div class="resource">
+                <h4>Exploratory Testing</h4>
+                <p>Discover the power of session-based testing and exploratory techniques.</p>
+                </br>
+                <a href="#" target="_blank" class="connect-btn" rel="noopener">button</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Collaborative Efforts -->
+    <div class="card">
+        <h2 class="card-title">Collaborative Efforts</h2>
+        <div class="blog-posts">
+            <div class="blog-post">
+                <h3>Co-authored Article: Solving Common Testing Challenges</h3>
+                <p>Read our collaborative piece on overcoming the most prevalent testing hurdles.</p>
+                </br>
+                <a href="#" target="_blank" class="connect-btn" rel="noopener">button</a>
+            </div>
+            <div class="blog-post">
+                <h3>Joint Project: Automated Testing Framework</h3>
+                <p>Explore the open-source automated testing framework we developed with the community.</p>
+                </br>
+                <a href="#" target="_blank" class="connect-btn" rel="noopener">button</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Investigation Page -->
+    <div class="card">
+        <h2 class="card-title">AI Investigation</h2>
+        <div class="featured-project">
+            <img src="/api/placeholder/400/300" alt="AI Investigation Page">
+            <h3>Exploring the Impact of AI on Software Testing</h3>
+            <p>Dive into our research and findings on the role of AI in the future of software testing.</p>
+            </br>
+            <a href="#" target="_blank" class="connect-btn" rel="noopener">button</a>
+        </div>
+    </div>
+
+    <!-- CSS Card Layout Repository -->
+    <div class="card">
+        <h2 class="card-title">CSS Card Layout Repository</h2>
+        <div class="featured-project">
+            <img src="/api/placeholder/400/300" alt="CSS Card Layout Repository">
+            <h3>Free CSS Card Layout Templates</h3>
+            <p>Access our collection of responsive and customizable CSS card layouts.</p>
+            </br>
+            <a href="#" target="_blank" class="connect-btn" rel="noopener">button</a>
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>

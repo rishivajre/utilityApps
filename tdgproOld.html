@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Data Generator Pro</title>
+    <style>
+        :root {
+    --primary: #2563eb;
+    --primary-hover: #10B981;
+    --background: #f5f5f5;
+    --text: #1f2937;
+    --max-width: 1100px;
+    --container-padding: clamp(8px, 2vw, 20px);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: var(--text);
+    background-color: var(--background);
+    min-height: 100vh;
+    
+}
+
+.container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 550px), 1fr));
+    gap: clamp(16px, vw, 1px);
+    padding: 0 var(--container-padding);
+    width: 100%;
+}
+
+.card {
+    background: white;
+    padding: clamp(16px, 3vw, 24px);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+h1 {
+    color: #141414;
+    text-align: center;
+    margin-bottom: clamp(8px, 2vw, 16px);
+    grid-column: 1 / -1;
+    font-size: clamp(24px, 4vw, 32px);
+}
+
+p {
+    color: #141414;
+    text-align: center;
+    font-size: clamp(14px, 2vw, 16px);
+    grid-column: 1 / -1;
+    margin-bottom: clamp(16px, 4vw, 32px);
+}
+
+.form-group {
+    margin-bottom: clamp(12px, 2vw, 20px);
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: clamp(14px, 1.5vw, 16px);
+}
+
+select,
+input,
+textarea {
+    width: 100%;
+    padding: clamp(8px, 4vw, 6px);
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: clamp(14px, 1.5vw, 16px);
+}
+
+.button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(8px, 2vw, 12px);
+    margin: clamp(12px, 2vw, 20px) 0;
+}
+
+button {
+    background-color: var(--primary);
+    color: white;
+    padding: clamp(8px, 1.5vw, 12px) clamp(16px, 2vw, 24px);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+    font-size: clamp(14px, 1.5vw, 16px);
+    flex: 1;
+    min-width: 120px;
+}
+
+button:hover {
+    background-color: var(--primary-hover);
+}
+
+.secondary {
+    background-color: #64748b;
+}
+
+.secondary:hover {
+    background-color: #475569;
+}
+
+#output {
+    font-family: monospace;
+    white-space: pre-wrap;
+    background-color: #f8fafc;
+    padding: clamp(12px, 2vw, 16px);
+    border-radius: 4px;
+    min-height: 200px;
+    max-height: clamp(300px, 50vh, 500px);
+    overflow-y: auto;
+    font-size: clamp(12px, 1.5vw, 14px);
+}
+
+.toast {
+    position: fixed;
+    bottom: clamp(4px, 2vw, 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #10b981;
+    color: white;
+    padding: clamp(4px, 2vw, 8px);
+    font-size: clamp(12px, 1.5vw, 14px);
+    border-radius: 7px;
+    display: none;
+    animation: fadeIn 0.3s;
+    z-index: 1000;
+    width: 40%;
+    text-align: center;
+}
+
+.options-container {
+    display: none;
+    margin-top: clamp(8px, 2vw, 12px);
+    padding: clamp(8px, 2vw, 12px);
+    background: #f8fafc;
+    border-radius: 4px;
+}
+
+.format-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: clamp(8px, 1.5vw, 12px);
+    margin: clamp(8px, 1.5vw, 12px) 0;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: clamp(14px, 1.5vw, 16px);
+}
+
+.checkbox-group input {
+    width: auto;
+    margin-right: 4px;
+}
+
+@media (max-width: 480px) {
+    .button-group {
+        flex-direction: column;
+    }
+    
+    button {
+        width: 100%;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, 10px);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Test Data Generator Pro</h1>
+        <p>Generate custom test data sets for your QA needs</p>
+        <div class="card">
+            <div class="form-group">
+                <label for="dataType">Data Type:</label>
+                <select id="dataType" onchange="updateOptions()">
+                    <option value="names">Full Names</option>
+                    <option value="emails">Email Addresses</option>
+                    <option value="numbers">Numbers</option>
+                    <option value="dates">Dates</option>
+                    <option value="phone">Phone Numbers</option>
+                    <option value="addresses">Addresses</option>
+                    <option value="creditCards">Credit Card Numbers</option>
+                    <option value="usernames">Usernames</option>
+                    <option value="passwords">Passwords</option>
+                    <option value="ipAddresses">IP Addresses</option>
+                    <option value="colors">Color Codes</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="count">Number of Items:</label>
+                <input type="number" id="count" value="5" min="1" max="1000">
+            </div>
+
+            <div id="numberOptions" class="options-container">
+                <div class="form-group">
+                    <label for="min">Minimum Value:</label>
+                    <input type="number" id="min" value="0">
+                </div>
+                <div class="form-group">
+                    <label for="max">Maximum Value:</label>
+                    <input type="number" id="max" value="100">
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="decimals">
+                    <label for="decimals">Include Decimals</label>
+                </div>
+            </div>
+
+            <div id="dateOptions" class="options-container">
+                <div class="form-group">
+                    <label for="startDate">Start Date:</label>
+                    <input type="date" id="startDate">
+                </div>
+                <div class="form-group">
+                    <label for="endDate">End Date:</label>
+                    <input type="date" id="endDate">
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="includeTime">
+                    <label for="includeTime">Include Time</label>
+                </div>
+            </div>
+
+            <div id="passwordOptions" class="options-container">
+                <div class="form-group">
+                    <label for="length">Password Length:</label>
+                    <input type="number" id="length" value="12" min="6" max="32">
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="uppercase" checked>
+                    <label for="uppercase">Uppercase</label>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="numbers" checked>
+                    <label for="numbers">Numbers</label>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="symbols" checked>
+                    <label for="symbols">Special Characters</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Output Format:</label>
+                <div class="format-options">
+                    <div class="checkbox-group">
+                        <input type="radio" name="format" id="formatJson" value="json" checked>
+                        <label for="formatJson">JSON</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="radio" name="format" id="formatCsv" value="csv">
+                        <label for="formatCsv">CSV</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="radio" name="format" id="formatSql" value="sql">
+                        <label for="formatSql">SQL</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button onclick="generateData()">Generate Data</button>
+                <button onclick="copyToClipboard()" class="secondary">Copy</button>
+                <button onclick="downloadData()" class="secondary">Download</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <label>Generated Output:</label>
+            <div id="output"></div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast">Copied to clipboard!</div>
+
+    <script>
+        document.getElementById('startDate').valueAsDate = new Date(Date.now() - 365 * 24 * 60 * 60 * 1000);
+        document.getElementById('endDate').valueAsDate = new Date();
+
+        const sampleData = {
+    firstNames: [
+        // Existing US names
+        'James', 'Mary', 'John', 'Patricia', 'Robert', 'Jennifer', 'Michael', 'Linda', 'William', 'Elizabeth',
+        'David', 'Susan', 'Richard', 'Jessica', 'Joseph', 'Sarah', 'Thomas', 'Karen', 'Charles', 'Nancy',
+        // Negative/Corrupt/Invalid names
+            '', '123456', '@!#$', 'null', 'undefined', 'NaN', '000000', 'name@name', '   ', 'NoName', '7777777',
+            'FakeName1', 'Test123', 'Invalid!@#',
+        'Daniel', 'Lisa', 'Matthew', 'Betty', 'Anthony', 'Margaret', 'Mark', 'Sandra', 'Donald', 'Ashley',
+        'Steven', 'Kimberly', 'Paul', 'Emily', 'Andrew', 'Donna', 'Joshua', 'Michelle', 'Kenneth', 'Carol',
+        'Kevin', 'Amanda', 'Brian', 'Dorothy', 'George', 'Melissa', 'Timothy', 'Deborah', 'Ronald', 'Stephanie',
+        // European names
+        'Liam', 'Emma', 'Lucas', 'Sophia', 'Oliver', 'Charlotte', 'Elias', 'Mia', 'Noah', 'Amelia',
+        'Hans', 'Anna', 'Klaus', 'Sofia', 'Francesco', 'Giulia', 'Giuseppe', 'Chiara', 'Marco', 'Elena',
+        'Jean', 'Marie', 'Pierre', 'Louise', 'Antoine', 'Claire', 'Henrik', 'Isabella', 'Anders', 'Astrid',
+        'Lars', 'Ingrid', 'Pavel', 'Natasha', 'Dmitri', 'Anastasia', 'Viktor', 'Olga', 'Ivan', 'Tatiana',
+        // Indian names
+        'Aarav', 'Aanya', 'Arjun', 'Zara', 'Vihaan', 'Anaya', 'Reyansh', 'Anika', 'Kabir', 'Ishita',
+        'Vivaan', 'Diya', 'Advik', 'Myra', 'Rudra', 'Prisha', 'Advaith', 'Aadhya', 'Atharv', 'Avni',
+        // Asian names
+        'Wei', 'Xia', 'Jun', 'Ming', 'Li', 'Hui', 'Jie', 'Ying', 'Feng', 'Hong',
+        'Hiroshi', 'Yuki', 'Takeshi', 'Sakura', 'Kenji', 'Akiko', 'Daisuke', 'Yumi', 'Kazuki', 'Haruka',
+        'Min-jun', 'Seo-yun', 'Ji-hun', 'Ha-eun', 'Jae-woo', 'Su-jin', 'Tae-hyun', 'Min-seo', 'Jung-hoon', 'Ye-jin'
+    ],
+    lastNames: [
+        // Existing US names
+        'Smith', 'Johnson', 'Williams', 'Brown', 'Jones', 'Garcia', 'Miller', 'Davis', 'Rodriguez', 'Martinez',
+        'Hernandez', 'Lopez', 'Gonzalez', 'Wilson', 'Anderson',
+        // Negative/Corrupt/Invalid names
+            '', '123456', '@!#$', 'null', 'undefined', 'NaN', '000000', 'lastname@domain', '   ', 'NoLastName', '7777777',
+            'TestSurname123', 'FakeLastName!', 'Invalid!@#',
+            'Thomas', 'Taylor', 'Moore', 'Jackson', 'Martin',
+        'Lee', 'Perez', 'Thompson', 'White', 'Harris', 'Sanchez', 'Clark', 'Ramirez', 'Lewis', 'Robinson',
+        'Walker', 'Young', 'Allen', 'King', 'Wright', 'Scott', 'Torres', 'Nguyen', 'Hill', 'Flores',
+        'Green', 'Adams', 'Nelson', 'Baker', 'Hall', 'Rivera', 'Campbell', 'Mitchell', 'Carter', 'Roberts',
+        // European surnames
+        'Mueller', 'Schmidt', 'Schneider', 'Fischer', 'Weber', 'Meyer', 'Wagner', 'Becker', 'Hoffmann', 'Schulz',
+        'Rossi', 'Ferrari', 'Esposito', 'Bianchi', 'Romano', 'Colombo', 'Bernard', 'Dubois', 'Thomas', 'Robert',
+        'Andersson', 'Johansson', 'Karlsson', 'Nilsson', 'Eriksson', 'Larsson', 'Petrov', 'Ivanov', 'Smirnov', 'Kuznetsov',
+        // Indian surnames
+        'Patel', 'Kumar', 'Singh', 'Shah', 'Sharma', 'Verma', 'Gupta', 'Malhotra', 'Kapoor', 'Mehra',
+        'Chopra', 'Bhat', 'Reddy', 'Nair', 'Pillai', 'Rao', 'Mehta', 'Joshi', 'Chauhan', 'Yadav',
+        // Asian surnames
+        'Wang', 'Li', 'Zhang', 'Liu', 'Chen', 'Yang', 'Huang', 'Zhao', 'Wu', 'Zhou',
+        'Tanaka', 'Suzuki', 'Sato', 'Takahashi', 'Watanabe', 'Ito', 'Yamamoto', 'Nakamura', 'Kobayashi', 'Kato',
+        'Kim', 'Lee', 'Park', 'Choi', 'Jung', 'Kang', 'Cho', 'Yoon', 'Jang', 'Lim'
+    ],
+    domains: [
+        // Existing domains
+        'example.com', 'testmail.com', 'mailinator.com', 'domain.com', 'samplemail.com', 
+        'webmail.com', 'fakemail.com', 'testing.com', 'mydomain.com', 'freemail.com',
+        'corporate.net', 'business.org', 'startup.io', 'techmail.co', 'devmail.net',
+        // Negative/Corrupt/Invalid domains
+            '', 'invalid@domain', 'example@domain..com', '@invalid.com', 'test@.com', 'mail@com', 'fakedomain', 'not.a.domain', 'test..com', 
+            'bad.domain@com', 'null@domain', 'undefined@domain.com', 'random@domain.#',
+        'fastmail.com', 'protonmail.com', 'securemail.org', 'privatemail.net', 'workmail.com',
+        // European domains
+        'mail.de', 'web.de', 'gmx.de', 'libero.it', 'tin.it', 'laposte.fr', 'orange.fr', 'mail.ru', 'yandex.ru',
+        // Indian domains
+        'rediff.com', 'indiatimes.com', 'sify.com', 'bharatmail.com', 'indianmail.com',
+        // Asian domains
+        'qq.com', '163.com', 'sina.com', 'sohu.com', 'yahoo.co.jp', 'naver.com', 'daum.net'
+    ],
+    cities: [
+        // Existing US cities
+        'New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix', 'Philadelphia', 'San Antonio', 'San Diego', 'Dallas', 'San Jose',
+        // Negative/Corrupt/Invalid cities
+            '', '123City', '@!#$', 'null', 'undefined', 'NaN', 'FakeCity123', 'RandomCity!!', 'NoCity', '   ',
+            'InvalidCity', 'City123!@#', 'FakeCity!#',
+        'Austin', 'Jacksonville', 'Fort Worth', 'Columbus', 'San Francisco', 'Charlotte', 'Indianapolis', 'Seattle', 'Denver', 'Boston',
+        // European cities
+        'London', 'Paris', 'Berlin', 'Madrid', 'Rome', 'Amsterdam', 'Brussels', 'Vienna', 'Stockholm', 'Copenhagen',
+        'Oslo', 'Dublin', 'Prague', 'Warsaw', 'Budapest', 'Athens', 'Lisbon', 'Helsinki', 'Munich', 'Barcelona',
+        // Indian cities
+        'Mumbai', 'Delhi', 'Bangalore', 'Hyderabad', 'Chennai', 'Kolkata', 'Pune', 'Ahmedabad', 'Jaipur', 'Surat',
+        'Lucknow', 'Kanpur', 'Nagpur', 'Indore', 'Thane', 'Bhopal', 'Coimbatore', 'Kochi', 'Chandigarh', 'Goa',
+        // Asian cities
+        'Tokyo', 'Shanghai', 'Beijing', 'Seoul', 'Singapore', 'Hong Kong', 'Bangkok', 'Taipei', 'Manila', 'Jakarta',
+        'Osaka', 'Yokohama', 'Guangzhou', 'Shenzhen', 'Kuala Lumpur', 'Ho Chi Minh City', 'Hanoi', 'Kyoto', 'Busan', 'Fukuoka'
+    ],
+    streets: [
+        // Existing streets
+        'Oak St', 'Maple St', 'Pine St', 'Cedar St', 'Elm St', 'Walnut St', 'Peach St', 'Cherry St', 'Birch St', 'Ash St',
+        'Main St', 'Washington St', 'Park Ave', 'Lake St', 'Hill Rd', 'River Rd', 'Market St', 'Church St', 'Bridge St', 'Highland Ave',
+        
+        // European streets
+        'High Street', 'King Street', 'Queen Street', 'Rue de la Paix', 'Avenue des Champs-Élysées', 'Via Roma', 
+        'Königsallee', 'Gran Via', 'Baker Street', 'Oxford Street', 'Nevsky Prospekt', 'Unter den Linden',
+        // Indian streets
+        'MG Road', 'Linking Road', 'Park Street', 'Commercial Street', 'Brigade Road', 'DLF Cyber City',
+        'Connaught Place', 'Chandni Chowk', 'Jubilee Hills', 'Bandra West',
+        // Asian streets
+        'Ginza', 'Nanjing Road', 'Orchard Road', 'Myeongdong', 'Nathan Road', 'Shinjuku', 'Shibuya',
+        'Causeway Bay', 'Tsim Sha Tsui', 'Omotesando'
+    ],
+    colors: [
+        // Existing colors
+        '#FF5733', '#33FF57', '#3357FF', '#FF33A1', '#A1FF33', '#FF5733', '#FFBD33', '#A333FF', '#33FFD7', '#FF3381',
+        '#4287f5', '#42f54b', '#f542aa', '#f5d142', '#42f5e3', '#f54242', '#8942f5', '#42f598', '#f59842', '#4842f5',// Negative/Corrupt/Invalid colors
+            '', '#0000000', '#GGGGGG', '#12345X', '#@@@', 'null', 'undefined', 'NaN', '#FF', '#12345!@#',
+        // Traditional European colors
+        '#840000', '#0F4D92', '#1B1B1B', '#873600', '#7B241C', '#145A32', '#1A5276', '#4A235A',
+        // Traditional Indian colors
+        '#FF9933', '#128807', '#000080', '#FF1A1A', '#FF8C00', '#FFD700', '#800080', '#FFA500',
+        // Traditional Asian colors
+        '#BC002D', '#FF4500', '#8B0000', '#C71585', '#FF69B4', '#4B0082', '#000000', '#B8860B',
+        '#006400', '#800000', '#008080', '#483D8B', '#2F4F4F', '#800080', '#A0522D', '#F4A460'
+    ],
+    suffixes: [
+        // Existing suffixes
+        'Dr', 'St', 'Ave', 'Ln', 'Blvd', 'Rd', 'Pl', 'Ct',
+        'Circle', 'Way', 'Trail', 'Pass', 'Pike', 'Highway', 'Route', 'Terrace',
+        // Negative/Corrupt/Invalid suffixes
+            '', '123', '@!#$', 'null', 'undefined', 'NaN', 'RandomSuffix', 'FakeSuffix1', 'Suffix@!#', '   ',
+        // European suffixes
+        'Strasse', 'Platz', 'Rue', 'Avenue', 'Piazza', 'Via', 'Plaza', 'Gasse',
+        // Indian suffixes
+        'Marg', 'Path', 'Nagar', 'Chowk', 'Layout', 'Colony', 'Garden', 'Society',
+        // Asian suffixes
+        'Dori', 'Lu', 'Jie', 'Ro', 'Gil', 'Dong'
+    ]
+};
+
+        function updateOptions() {
+            document.querySelectorAll('.options-container').forEach(el => el.style.display = 'none');
+            const selectedType = document.getElementById('dataType').value;
+            if (selectedType === 'numbers') document.getElementById('numberOptions').style.display = 'block';
+            if (selectedType === 'dates') document.getElementById('dateOptions').style.display = 'block';
+            if (selectedType === 'passwords') document.getElementById('passwordOptions').style.display = 'block';
+        }
+
+        function generateData() {
+            const count = Math.min(Math.max(parseInt(document.getElementById('count').value), 1), 1000);
+            const dataType = document.getElementById('dataType').value;
+            const format = document.querySelector('input[name="format"]:checked').value;
+
+            const output = [];
+            for (let i = 0; i < count; i++) {
+                output.push(generateSingleData(dataType));
+            }
+
+            const formattedOutput = formatData(output, format);
+            document.getElementById('output').textContent = formattedOutput;
+        }
+
+        function generateSingleData(type) {
+            switch (type) {
+                case 'names':
+                    return `${randomFrom(sampleData.firstNames)} ${randomFrom(sampleData.lastNames)}`;
+                case 'emails':
+                    return `${randomFrom(sampleData.firstNames).toLowerCase()}.${randomFrom(sampleData.lastNames).toLowerCase()}@${randomFrom(sampleData.domains)}`;
+                case 'numbers':
+                    return generateNumber();
+                case 'dates':
+                    return generateDate();
+                case 'phone':
+                    return generatePhoneNumber();
+                case 'addresses':
+                    return `${Math.floor(Math.random() * 9999)} ${randomFrom(sampleData.streets)}, ${randomFrom(sampleData.cities)}`;
+                case 'creditCards':
+                    return generateCreditCard();
+                case 'usernames':
+                    return `${randomFrom(sampleData.firstNames).toLowerCase()}_${Math.floor(Math.random() * 9999)}`;
+                case 'passwords':
+                    return generatePassword();
+                case 'ipAddresses':
+                    return `${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}`;
+                case 'colors':
+                    return randomFrom(sampleData.colors);
+            }
+        }
+
+        function generateNumber() {
+            const min = parseInt(document.getElementById('min').value) || 0;
+            const max = parseInt(document.getElementById('max').value) || 100;
+            const decimals = document.getElementById('decimals').checked;
+            const num = min + Math.random() * (max - min);
+            return decimals ? num.toFixed(2) : Math.floor(num);
+        }
+
+        function generateDate() {
+            const start = new Date(document.getElementById('startDate').value).getTime();
+            const end = new Date(document.getElementById('endDate').value).getTime();
+            const randomDate = new Date(start + Math.random() * (end - start));
+            return document.getElementById('includeTime').checked ? randomDate.toLocaleString() : randomDate.toLocaleDateString();
+        }
+
+        function generatePhoneNumber() {
+            const areaCode = Math.floor(100 + Math.random() * 900);
+            const centralOfficeCode = Math.floor(100 + Math.random() * 900);
+            const lineNumber = Math.floor(1000 + Math.random() * 9000);
+            return `(${areaCode}) ${centralOfficeCode}-${lineNumber}`;
+        }
+
+        function generateCreditCard() {
+            const cardNumber = Array.from({
+                length: 4
+            }, () => Math.floor(1000 + Math.random() * 9000)).join(" ");
+            return cardNumber;
+        }
+
+        function generatePassword() {
+            const length = parseInt(document.getElementById('length').value);
+            const includeUppercase = document.getElementById('uppercase').checked;
+            const includeNumbers = document.getElementById('numbers').checked;
+            const includeSymbols = document.getElementById('symbols').checked;
+
+            const lower = 'abcdefghijklmnopqrstuvwxyz';
+            const upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const numbers = '0123456789';
+            const symbols = '!@#$%^&*()_-+=<>?';
+
+            let chars = lower;
+            if (includeUppercase) chars += upper;
+            if (includeNumbers) chars += numbers;
+            if (includeSymbols) chars += symbols;
+
+            return Array.from({
+                length
+            }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
+        }
+
+        function formatData(data, format) {
+            switch (format) {
+                case 'json':
+                    return JSON.stringify(data, null, 2);
+                case 'csv':
+                    return data.map(item => `"${item}"`).join("\n");
+                case 'sql':
+                    return data.map(item => `INSERT INTO table_name (column_name) VALUES ('${item}');`).join("\n");
+                default:
+                    return data.join("\n");
+            }
+        }
+
+        function copyToClipboard() {
+            const output = document.getElementById('output').textContent;
+            navigator.clipboard.writeText(output).then(() => showToast());
+        }
+
+        function downloadData() {
+            const output = document.getElementById('output').textContent;
+            const blob = new Blob([output], {
+                type: 'text/plain'
+            });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `test_data_${Date.now()}.txt`;
+            link.click();
+        }
+
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.style.display = 'block';
+            setTimeout(() => toast.style.display = 'none', 3000);
+        }
+
+        function randomFrom(array) {
+            return array[Math.floor(Math.random() * array.length)];
+        }
+    </script>
+</body>
+
+</html>
