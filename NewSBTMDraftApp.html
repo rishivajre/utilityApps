@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Session-Based Test Management</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css">
+  <style>
+    /* Tailwind CSS utility classes */
+    @import 'https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css';
+
+    /* Custom styles */
+    .rounded-lg { border-radius: 0.5rem; }
+    .shadow-md { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
+    .bg-gray-200 { background-color: #e5e7eb; }
+    .text-gray-600 { color: #718096; }
+    .font-bold { font-weight: 700; }
+    .mb-4 { margin-bottom: 1rem; }
+    .p-4 { padding: 1rem; }
+  </style>
+</head>
+<body class="bg-gray-100 font-sans">
+  <div class="max-w-5xl mx-auto py-10">
+    <header class="bg-white shadow-md rounded-lg p-6 mb-6">
+      <div class="flex justify-between items-center">
+        <div>
+          <h1 class="text-2xl font-bold">SBTM Dashboard</h1>
+          <p class="text-gray-600">Optimized session-based test management</p>
+        </div>
+        <div class="flex space-x-4">
+          <button class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">Sign In</button>
+          <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Sign Up</button>
+        </div>
+      </div>
+    </header>
+    
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+      <div class="flex justify-between items-center mb-4">
+        <div>
+          <h2 class="text-lg font-bold">Session Details</h2>
+          <p class="text-gray-600">Current session metrics</p>
+        </div>
+        <div class="flex space-x-4">
+          <button class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
+            New Session
+          </button>
+          <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+            View Sessions
+          </button>
+        </div>
+      </div>
+      
+      <div class="flex justify-between items-center">
+        <div class="flex-1 bg-gray-200 rounded-lg p-4 mr-4">
+          <p class="text-2xl font-bold">00.00.00</p>
+          <p class="text-gray-600">Total Recorded</p>
+        </div>
+        <div class="flex-1 bg-gray-200 rounded-lg p-4 mr-4">
+          <p class="text-2xl font-bold">00.00.00</p>
+          <p class="text-gray-600">Sesh Recorded</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+      <h2 class="text-lg font-bold mb-4">Session Actions</h2>
+      <div class="grid grid-cols-5 gap-4">
+        <div class="bg-gray-200 rounded-lg p-4 text-center">
+          <div class="text-4xl font-bold mb-2">🔍</div>
+          <p>Testies</p>
+        </div>
+        <div class="bg-gray-200 rounded-lg p-4 text-center">
+          <div class="text-4xl font-bold mb-2">🧭</div>
+          <p>Charter</p>
+        </div>
+        <div class="bg-gray-200 rounded-lg p-4 text-center">
+          <div class="text-4xl font-bold mb-2">⏸️</div>
+          <p>Pause</p>
+        </div>
+        <div class="bg-gray-200 rounded-lg p-4 text-center">
+          <div class="text-4xl font-bold mb-2">🧠</div>
+          <p>Sponorous</p>
+        </div>
+        <div class="bg-gray-200 rounded-lg p-4 text-center">
+          <div class="text-4xl font-bold mb-2">🏁</div>
+          <p>End</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-lg font-bold">View Sessions</h2>
+        <div class="flex space-x-4">
+          <button class="bg-gray-200 hover:bg-gray-300 text-gray-600 font-bold py-2 px-4 rounded">
+            Filter
+          </button>
+          <button class="bg-gray-200 hover:bg-gray-300 text-gray-600 font-bold py-2 px-4 rounded">
+            Sort
+          </button>
+          <button class="bg-gray-200 hover:bg-gray-300 text-gray-600 font-bold py-2 px-4 rounded">
+            Search
+          </button>
+        </div>
+      </div>
+      <div class="grid grid-cols-4 gap-4">
+        <div class="bg-gray-200 rounded-lg p-4">
+          <p class="text-gray-600">Bako Auliet TV</p>
+          <p class="text-gray-600">+</p>
+        </div>
+        <div class="bg-gray-200 rounded-lg p-4">
+          <p class="text-gray-600">Tutkaty Nascent</p>
+          <p class="text-gray-600">+</p>
+        </div>
+        <div class="bg-gray-200 rounded-lg p-4">
+          <p class="text-gray-600">Fucker Tryple</p>
+          <p class="text-gray-600">-></p>
+        </div>
+        <div class="bg-gray-200 rounded-lg p-4">
+          <p class="text-gray-600">Belgan TXI</p>
+          <p class="text-gray-600">-></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-lg font-bold">Session Notes</h2>
+        <button class="bg-gray-200 hover:bg-gray-300 text-gray-600 font-bold py-2 px-4 rounded">
+          Add Note
+        </button>
+      </div>
+      <div class="grid grid-cols-4 gap-4">
+        <div class="bg-gray-200 rounded-lg p-4">
+          <p class="text-gray-600 font-bold">Test Notes</p>
+          <p class="text-gray-600">Tysteria</p>
+          <p class="text-gray-600 font-bold">Work</p>
+          <p class="text-green-500">0 2</p>
+        </div>
+        <div class="bg-gray-200 rounded-lg p-4">
+          <p class="text-gray-600 font-bold">Demo Arcades</p>
+          <p class="text-gray-600">Smart</p>
+          <p class="text-gray-600 font-bold">Chilly</p>
+          <p class="text-green-500">0 2</p>
+        </div>
+        <div class="bg-gray-200 rounded-lg p-4">
+          <p class="text-gray-600 font-bold">Questions & Issues</p>
+          <p class="text-gray-600">Session</p>
+          <p class="text-gray-600 font-bold">Gnarly</p>
+          <p class="text-green-500">0 2</p>
+        </div>
+        <div class="bg-gray-200 rounded-lg p-4">
+          <p class="text-gray-600 font-bold">Opportunities</p>
+          <p class="text-gray-600">Snarky</p>
+          <p class="text-gray-600 font-bold">Shary</p>
+          <p class="text-green-500">0 4</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+      <div class="flex justify-between items-center">
+        <h2 class="text-lg font-bold">Export</h2>
+        <div class="flex space-x-4">
+          <button class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
+            Export Sessions
+          </button>
+          <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+            Export Notes
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-lg font-bold">Reporting and Analytics</h2>
+        <div class="flex space-x-4">
+          <button class="bg-gray-200 hover:bg-gray-300 text-gray-600 font-bold py-2 px-4 rounded">
+            Dashboards
+          </button>
+          <button class="bg-gray-200 hover:bg-gray-300 text-gray-600 font-bold py-2 px-4 rounded">
+            Custom Reports
+          </button>
+        </div>
+      </div>
+      <div class="grid grid-cols-3 gap-4">
+        <div class="bg-gray-200 rounded-lg p-4">
+          <p class="text-2xl font-bold">85%</p>
+          <p class="text-gray-600">Session Completion</p>
+        </div>
+        <div class="bg-gray-200 rounded-lg p-4">
+          <p class="text-2xl font-bold">92%</p>
+          <p class="text-gray-600">Customer Satisfaction</p>
+        </div>
+        <div class="bg-gray-200 rounded-lg p-4">
+          <p class="text-2xl font-bold">$18,450</p>
+          <p class="text-gray-600">Total Revenue</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-lg font-bold">Integrations</h2>
+        <div class="flex space-x-4">
+          <button class="bg-gray-200 hover:bg-gray-300 text-gray-600 font-bold py-2 px-4 rounded">
+            Connect Tools
+          </button>
+          <button class="bg-gray-200 hover:bg-gray-300 text-gray-600 font-bold py-2 px-4 rounded">
+            Manage Integrations
+          </button>
+        </div>
+      </div>
+      <div class="grid grid-cols-4 gap-4">
+        <div class="bg-gray-200 rounded-lg p-4 text-center">
+          <img src="/api/placeholder/50/50" alt="Jira" class="mx-auto mb-2" />
+          <p>Jira</p>
+        </div>
+        <div class="bg-gray-200 rounded-lg p-4 text-center">
+          <img src="/api/placeholder/50/50" alt="Trello" class="mx-auto mb-2" />
+          <p>Trello</p>
+        </div>
+        <div class="bg-gray-200 rounded-lg p-4 text-center">
+          <img src="/api/placeholder/50/50" alt="GitHub" class="mx-auto mb-2" />
+          <p>GitHub</p>
+        </div>
+        <div class="bg-gray-200 rounded-lg p-4 text-center">
+          <img src="/api/placeholder/50/50" alt="Slack" class="mx-auto mb-2" />
+          <p>Slack</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-lg font-bold">Settings</h2>
+        <div class="flex space-x-4">
+          <button class="bg-gray-200 hover:bg-gray-300 text-gray-600 font-bold py-2 px-4 rounded">
+            User Profile
+          </button>
+          <button class="bg-gray-200 hover:bg-gray-300 text-gray-600 font-bold py-2 px-4 rounded">
+            Preferences
+          </button>
+          <button class="bg-gray-200 hover:bg-gray-300 text-gray-600 font-bold py-2 px-4 rounded">
+            Permissions
+          </button>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="bg-gray-200 rounded-lg p-4">
+          <p class="text-gray-600 font-bold">Theme</p>
+          <div class="flex space-x-2">
+            <button class="bg-blue-500 hover:bg-blue-600 text-white w-8 h-8 rounded-full"></button>
+            <button class="bg-green-500 hover:bg-green-600 text-white w-8 h-8 rounded-full"></button>
+            <button class="bg-pink-500 hover:bg-pink-600 text-white w-8 h-8 rounded-full"></button>
+            <button class="bg-gray-500 hover:bg-gray-600 text-white w-8 h-8 rounded-full"></button>
+          </div>
+        </div>
+        <div class="bg-gray-200 rounded-lg p-4">
+          <p class="text-gray-600 font-bold">Notifications</p>
+          <div class="flex items-center">
+            <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" />
+            <label class="ml-2 text-gray-600">New Sessions</label>
+          </div>
+          <div class="flex items-center">
+            <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" />
+            <label class="ml-2 text-gray-600">Session Updates</label>
+          </div>
+          <div class="flex items-center">
+            <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" />
+            <label class="ml-2 text-gray-600">Team Alerts</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</body>
+</html>
